@@ -1,0 +1,29 @@
+<div class="container">
+  <img class="photo" src="{{ avatarUrl }}" />
+  <div class="content">
+    <div class="info">
+      <h2>Jeshua Scott</h2>
+      <p>{{ message.sentTime | date : "shortTime" }}</p>
+    </div>
+    <p class="message">
+      {{ message.message }}
+      <!-- Emoji -->
+      <!-- <span class="icon-wrapper"
+        ><img
+          class="icon"
+          src="https://cdn.shopify.com/s/files/1/1061/1924/products/Sunglasses_Emoji_be26cc0a-eef9-49e5-8da2-169bb417cc0b_large.png?v=1480481057"
+      /></span> -->
+    </p>
+    <div class="attachment" *ngFor="let item of message?.attachment">
+      <img class="content-image" src="{{ item.source }}" />
+      <!-- reactions -->
+      <!-- <div class="reaction">
+        <img
+          class="icon"
+          src="https://i.ibb.co/r633sJq/smiling-face-with-heart-shaped-eyes-1f60d.png"
+        />
+        <p>3 --reaction-count</p>
+      </div> -->
+    </div>
+  </div>
+</div>

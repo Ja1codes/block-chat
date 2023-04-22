@@ -1,0 +1,7 @@
+<div class="chat-area" #chatBox>
+  <app-message
+    *ngFor="let message of messages"
+    [message]="message"
+  ></app-message>
+  <app-chat-breakline></app-chat-breakline>
+</div>

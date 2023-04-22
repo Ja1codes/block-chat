@@ -1,0 +1,28 @@
+.chat-break {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.line {
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+.date-info {
+  position: absolute;
+  background: white;
+}
+.date-info {
+  padding: 0 10px;
+}
+p {
+  margin: 0;
+}
+p {
+  font-size: 14px;
+  color: #b5b5b5;
+}

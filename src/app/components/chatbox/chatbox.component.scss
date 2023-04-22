@@ -1,0 +1,9 @@
+.chat-area {
+  padding: 16px;
+}
+.chat-area {
+  flex: 1;
+  height: calc(100vh - 60px - 80px);
+  overflow: auto;
+  border-bottom: 1px solid #ddd;
+}
