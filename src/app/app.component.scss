@@ -21,7 +21,7 @@ p{
 }
 .left-area{
   display:flex;
-  background-image:url("https://i.ibb.co/S7ZrZnG/image.png");
+  background-image:url("https://i.pinimg.com/736x/bb/eb/27/bbeb27f25ab6031f484421a0ec737218.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   height:100%;
@@ -55,23 +55,6 @@ p{
   margin-bottom:24px;
   font-size:14px;
 }
-.icon{
- /* margin-right:5px;*/
-}
-.channel , .friends{
-  display:flex;
-  justify-content:space-between;
-  font-size:14px;
-  padding:5px;
-}
-.channel-list{
-  padding-left:6px;
-}
-.channel-name{
-  display:flex;
-  padding:5px;
-  font-size:14px;
-}
 .selected{
   background:rgb(255,255,255,0.2);
   border-radius:4px;
@@ -89,9 +72,6 @@ p{
 ::-webkit-scrollbar-thumb {
   background: #B5B5B5;
   border-radius: 10px;
-}
-.friend-list{
-  padding:5px;
 }
 .friend-info{
   display:flex;

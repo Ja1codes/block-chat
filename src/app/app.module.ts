@@ -8,6 +8,9 @@ import { ChatboxComponent } from './components/chatbox/chatbox.component';
 import { MessageComponent } from './shared/message/message.component';
 import { ChatInputComponent } from './components/chatbox/chat-input/chat-input.component';
 import { ChatBreaklineComponent } from './shared/chat-breakline/chat-breakline.component';
+import { ChatsComponent } from './components/chats/chats.component';
+import { FriendChipComponent } from './shared/friend-chip/friend-chip.component';
+import { FriendDetailsComponent } from './components/friend-details/friend-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,11 +18,14 @@ import { ChatBreaklineComponent } from './shared/chat-breakline/chat-breakline.c
     MessageComponent,
     ChatInputComponent,
     ChatBreaklineComponent,
+    ChatsComponent,
+    FriendChipComponent,
+    FriendDetailsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,12 @@
+<div class="friends">
+  <p>Chats</p>  
+  <p>{{ friends.length }}</p>
+</div>
+<div class="friend-list">
+  <app-friend-chip
+    [online]="true"
+    *ngFor="let friend of friends"
+    [friend]="friend"
+    (click)="showFriendDetails(friend.id)"
+  ></app-friend-chip>
+</div>

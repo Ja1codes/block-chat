@@ -1,0 +1,34 @@
+<div class="friend-info">
+  <svg
+    width="7"
+    height="6"
+    viewBox="0 0 7 6"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    *ngIf="online"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M3.50005 2.98023e-06C5.15688 2.98023e-06 6.50003 1.34316 6.50003 2.99998C6.50003 4.65684 5.15688 6 3.50005 6C1.84314 6 0.499984 4.65684 0.499984 2.99998C0.499984 1.34316 1.84314 2.98023e-06 3.50005 2.98023e-06Z"
+      fill="#70CC16"
+    />
+  </svg>
+  <svg
+    width="7"
+    height="6"
+    viewBox="0 0 7 6"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    *ngIf="!online"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M3.5 0a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"
+      fill="#666"
+    />
+  </svg>
+  <img class="photo" src="{{ friend.avatar }}" />
+  <p>{{ friend.userName }}</p>
+</div>

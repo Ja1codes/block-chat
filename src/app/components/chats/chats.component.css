@@ -1,0 +1,12 @@
+.friends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 5px;
+}
+.friend-list {
+  padding: 5px;
+}
+.friend-list {
+  padding: 5px;
+}
