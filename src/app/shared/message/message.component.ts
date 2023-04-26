@@ -22,6 +22,4 @@ export class MessageComponent implements OnInit {
     console.log('Initialized Message Component');
     console.log(this.message);
   }
-  avatarSeed: string = Math.random().toString(36).substring(2,7);
-  avatarUrl: string = `https://api.dicebear.com/6.x/adventurer-neutral/svg?seed=${this.avatarSeed}`;
 }

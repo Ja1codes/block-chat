@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Message } from 'src/app/shared/message/message';
+import { FriendService } from 'src/app/shared/friend.service';
+import { Message, User } from 'src/app/shared/message/message';
 @Component({
   selector: 'app-chatbox',
   templateUrl: './chatbox.component.html',
@@ -107,15 +108,21 @@ export class ChatboxComponent implements OnInit {
     sentTime: new Date("Tue Feb 05 2019 06:05:22 GMT+0530 (IST)"),
   },
   ];
-  @ViewChild('chatBox') chatBox!: ElementRef;
-
+  @ViewChild('chatBox') chatBox!: ElementRef; // For Scroll to Bottom Feature
+  constructor(private _friendService: FriendService){
+  }
+  chatWith!: User;
   ngOnInit(): void {
+    this._friendService.$chatWith.subscribe( user =>{
+      this.chatWith = user;
+    })
   }
   ngAfterViewInit(): void {
     this.scrollToBottom();
   }
-  addMessage(message: Message) {
-    this.messages.push(message);
+  newMessage(message: Message) {
+    const newMessage = {...message}
+    this.messages.push(newMessage);
     this.scrollToBottom();
   }
   private scrollToBottom() {

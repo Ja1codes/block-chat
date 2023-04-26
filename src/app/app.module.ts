@@ -11,6 +11,7 @@ import { ChatBreaklineComponent } from './shared/chat-breakline/chat-breakline.c
 import { ChatsComponent } from './components/chats/chats.component';
 import { FriendChipComponent } from './shared/friend-chip/friend-chip.component';
 import { FriendDetailsComponent } from './components/friend-details/friend-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ import { FriendDetailsComponent } from './components/friend-details/friend-detai
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

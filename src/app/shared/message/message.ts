@@ -1,7 +1,7 @@
 export class Message{
   user!: User;
   message!: string;
-  attachment!: Attachment[];
+  attachment: Attachment[] = [] ;
   sentTime!: Date;
 }
 export class User{

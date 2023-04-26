@@ -1,3 +1,25 @@
+<div class="message-header">
+  <div class="message-wrapper">
+    <div class="left">
+      <h2>{{chatWith.userName}}</h2>
+      <div class="icon">
+        <i class="fa-solid fa-star"></i>
+      </div>
+    </div>
+    <div class="right">
+      <!-- Style this -->
+      <div>
+        <input class="search" placeholder="Search..." />
+      </div>
+
+      <div class="wrapper">
+        <button>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="chat-area" #chatBox>
   <app-message
     *ngFor="let message of messages"
@@ -5,3 +27,4 @@
   ></app-message>
   <app-chat-breakline></app-chat-breakline>
 </div>
+<app-chat-input (newMessage)="newMessage($event)"></app-chat-input>

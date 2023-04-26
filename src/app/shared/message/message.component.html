@@ -1,8 +1,8 @@
 <div class="container">
-  <img class="photo" src="{{ avatarUrl }}" />
+  <img class="photo" [src]="message.user.avatar"/>
   <div class="content">
     <div class="info">
-      <h2>Jeshua Scott</h2>
+      <h2>{{message.user.userName}}</h2>
       <p>{{ message.sentTime | date : "shortTime" }}</p>
     </div>
     <p class="message">
