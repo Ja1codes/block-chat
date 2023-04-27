@@ -12,6 +12,8 @@ import { ChatsComponent } from './components/chats/chats.component';
 import { FriendChipComponent } from './shared/friend-chip/friend-chip.component';
 import { FriendDetailsComponent } from './components/friend-details/friend-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { sha256 } from 'sha.js';
+import {SHA256} from 'crypto-js'
 @NgModule({
   declarations: [
     AppComponent,

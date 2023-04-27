@@ -13,9 +13,23 @@
       </div>
 
       <div class="wrapper">
-        <button>
+        <div class="dropdown">
+          <button
+            class="dropdown-toggle"
+            href="#"
+            role="button"
+            id="chatMenuLink"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
           <i class="fa-solid fa-ellipsis-vertical"></i>
-        </button>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="chatMenuLink">
+            <li><a class="dropdown-item" href="#" (click)="validateChat()">Validate Chat</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

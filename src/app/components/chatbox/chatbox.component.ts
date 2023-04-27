@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FriendService } from 'src/app/shared/friend.service';
 import { Message, User } from 'src/app/shared/message/message';
+import { Block, BlockChain } from 'src/app/blockchain/blockchain'
 @Component({
   selector: 'app-chatbox',
   templateUrl: './chatbox.component.html',
@@ -112,6 +113,7 @@ export class ChatboxComponent implements OnInit {
   constructor(private _friendService: FriendService){
   }
   chatWith!: User;
+  contextChain: BlockChain = new BlockChain();
   ngOnInit(): void {
     this._friendService.$chatWith.subscribe( user =>{
       this.chatWith = user;
@@ -120,8 +122,16 @@ export class ChatboxComponent implements OnInit {
   ngAfterViewInit(): void {
     this.scrollToBottom();
   }
+  validateChat(){
+    this.contextChain.isChainValid();
+    alert('Chat is Valid!');
+  }
   newMessage(message: Message) {
-    const newMessage = {...message}
+    const newMessage = {...message};
+    const block: Block = new Block(this.contextChain.getLatestBlock().index+1, new Date, message, this.contextChain.getLatestBlock().hash);
+    block.hash = block.calculateHash();
+    console.log(JSON.stringify(block));
+    this.contextChain.addBlock(block);
     this.messages.push(newMessage);
     this.scrollToBottom();
   }
