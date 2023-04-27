@@ -32,6 +32,11 @@ export class ChatsComponent {
     userName: 'Artistson Syngwan',
     avatar: `https://api.dicebear.com/6.x/initials/svg?seed=ArtistsonSyngwan`,
   },
+  {
+    id: 6,
+    userName: 'Dhiraj',
+    avatar: `https://api.dicebear.com/6.x/initials/svg?seed=Dhiraj`,
+  },
   ];
   constructor(private _friendservice:FriendService){}
   showFriendDetails(id: number){
