@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from './shared/message/message';
 import { UserService } from './user.service';
+import { FirebaseService } from './core/firebase.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,24 @@ import { UserService } from './user.service';
 export class AppComponent {
   title = 'blockChat';
   currentUser!: User;
-  constructor(private _userService: UserService){
-
+  constructor(
+    private _userService: UserService,
+    private _firebaseServie: FirebaseService
+    ){
   }
+  isSignedIn=false;
   ngOnInit(){
-    this.currentUser = this._userService.currentUser;
+    this._userService.isLoggedIn.subscribe(res=>{
+      this.isSignedIn = res;
+    })
+    if(localStorage.getItem('user')!==null){
+      alert("SignUp Successful")
+      this._userService._isLoggedIn$.next(true);
+      console.log(localStorage.getItem('user'));
+    }
+    else{
+      this._userService._isLoggedIn$.next(false);
+    }
+
   }
 }
