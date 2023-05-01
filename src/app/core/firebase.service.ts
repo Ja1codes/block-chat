@@ -38,7 +38,6 @@ export class FirebaseService {
         this.isLoggedIn = true;
         this._userService._isLoggedIn$.next(true);
         this.accessToken = JSON.parse(JSON.stringify(res)).user.stsTokenManager.accessToken;
-        console.log(this.accessToken);
         localStorage.setItem('accessToken',this.accessToken);
         localStorage.setItem('user',JSON.stringify(res.user));
       }
@@ -46,14 +45,21 @@ export class FirebaseService {
   }
 
   signup(email:string, password: string){
-    this.afAuth.createUserWithEmailAndPassword(email,password).then(
-      res=>{
-        this.isLoggedIn = true;
-        this._userService._isLoggedIn$.next(true);
-        console.log(JSON.stringify(res));
-        localStorage.setItem('user',JSON.stringify(res.user));
-      }
-    )
+    return new Promise((resolve, reject) => {
+      this.afAuth.createUserWithEmailAndPassword(email,password).then(
+        res=>{
+          this.isLoggedIn = true;
+          this._userService._isLoggedIn$.next(true);
+          this.accessToken = JSON.parse(JSON.stringify(res)).user.stsTokenManager.accessToken;
+          localStorage.setItem('accessToken',this.accessToken);
+          localStorage.setItem('user',JSON.stringify(res.user));
+          console.log(JSON.stringify(res));
+          resolve(res);
+        }
+      ).catch(error=>{
+        reject(error);
+      })
+    })
   }
   logout(){
     this.afAuth.signOut();
@@ -71,6 +77,17 @@ export class FirebaseService {
   createUserFirestore(user: UserModel): any {
     return this.usersRef.add({ ...user });
   }
+  addUserFirestore(user: UserModel){
+    this.db.collection('users').add({
+      ...user
+  })
+  .then(res => {
+      console.log(res);
+  })
+  .catch(e => {
+      console.log(e);
+  })
+  }
   updateUserFirestore(id: string, data: any): Promise<void> {
     return this.usersRef.doc(id).update(data);
   }
@@ -78,3 +95,7 @@ export class FirebaseService {
     return this.usersRef.doc(id).delete();
   }
 }
+function callback() {
+  throw new Error('Function not implemented.');
+}
+
