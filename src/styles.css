@@ -8,7 +8,6 @@ html {
   height: 100%;
   color: #ffffff;
   font-family: "Lato", sans-serif;
-  zoom: 80%;
 }
 h2,
 p {
@@ -18,18 +17,7 @@ p {
   font-size: 14px;
   color: #b5b5b5;
 }
-.jotform-page {
-  height: 100%;
-  display: flex;
-}
-.left-area {
-  display: flex;
-  background-image: url("https://i.pinimg.com/736x/bb/eb/27/bbeb27f25ab6031f484421a0ec737218.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  height: 100%;
-  width: 300px;
-}
+
 .icon-area {
   display: flex;
   flex-direction: column;
@@ -118,7 +106,7 @@ button {
 }
 .notification {
   display: flex;
-  backround: rgb(255, 255, 255);
+  background: rgb(255, 255, 255);
 }
 .red-dot {
   margin-top: -10px;
@@ -272,7 +260,7 @@ span.extension {
 }
 .social-icon {
   width: 22px;
-  heigt: 20px;
+  height: 20px;
   border-radius: 50%;
   background-color: #e8e8eb;
   padding: 2px;
