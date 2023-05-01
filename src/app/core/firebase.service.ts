@@ -2,6 +2,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Injectable } from '@angular/core';
 import { UserService } from '../user.service';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { UserModel } from '../shared/services/user';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +12,14 @@ export class FirebaseService {
 
   accessToken!: string;
   isLoggedIn = false;
-  userData: any;
-  newUser!: AngularFirestoreDocument<any>;
-  users!: AngularFirestoreCollection<any>;
-  private dbUsersPath = '/tutorials';
+  userData!: any;
+  userRef!: AngularFirestoreDocument<UserModel>;
+  usersRef!: AngularFirestoreCollection<UserModel>;
+  private dbUsersPath = '/users';
   constructor(public afAuth: AngularFireAuth, private _userService: UserService, private db: AngularFirestore)
   {
+    this.usersRef = db.collection(this.dbUsersPath);
+
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -57,5 +61,20 @@ export class FirebaseService {
     localStorage.removeItem('accessToken');
     this._userService._isLoggedIn$.next(false);
     this.isLoggedIn = false;
+  }
+
+  // User in Firestore
+  getAll(): AngularFirestoreCollection<UserModel> {
+    return this.usersRef;
+  }
+  // v Returns Promise, use .then({ .. })
+  createUserFirestore(user: UserModel): any {
+    return this.usersRef.add({ ...user });
+  }
+  updateUserFirestore(id: string, data: any): Promise<void> {
+    return this.usersRef.doc(id).update(data);
+  }
+  deleteUserFirestore(id: string): Promise<void> {
+    return this.usersRef.doc(id).delete();
   }
 }
