@@ -10,8 +10,8 @@ export class UserService {
   _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoggedIn = this._isLoggedIn$.asObservable();
   currentUser: any = {
-    id: 10,
-    userName: "Pankaj Choudhary",
-    avatar: `https://api.dicebear.com/6.x/initials/svg?seed=PankajChoudhary`,
+    id: 0,
+    userName: "",
+    avatar: ``,
   }
 }
