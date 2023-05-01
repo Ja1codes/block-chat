@@ -18,4 +18,7 @@ export class LoginPageComponent {
   onSigupSelected(){
     this.signupSelected.emit();
   }
+  onGoogleLoginClick(){
+    this._firebaseService.GoogleAuth()
+  }
 }

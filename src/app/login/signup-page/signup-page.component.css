@@ -1,20 +1,74 @@
-#login-signup{
-    background-image: url(src\assets\bg.jpg);
-}
+
 .form-container{
+    padding-top: 50px;
     padding: 40px;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0);
 
 }
 .form-control{
     margin: 10px 0px;
+    width: 500px;
 
 }
 .form-container p{
     color: black;
 }
-.div-center {
+.bttn.bttn-primary {
+    background: #fbceb5 !important;
+    border: 1px solid #fbceb5 !important;
+    color: #000 !important;
+}
+.bttn {
+    cursor: pointer;
+    border-radius: 40px;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+element.style {
+}
+.btn.btn-primary {
+    background: #fbceb5 !important;
+    border: 1px solid #fbceb5 !important;
+    color: #000 !important;
+}
+button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled) {
+    cursor: pointer;
+}
+.btn {
+    cursor: pointer;
+    border-radius: 40px;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+.form-control {
+    background: transparent;
+    border: none;
+    height: 50px;
+    color: black!important;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+.pl-3, .px-3 {
+    padding-left: 1rem !important;
+}
+.pr-3, .px-3 {
+    padding-right: 1rem !important;
+}
+
+  
+ .div-center {
     width: 400px;
     height: 400px;
     position: absolute;
@@ -35,4 +89,7 @@
     display: table-cell;
     vertical-align: middle;
   }
-  
+  #signup-p{
+    font-size: 1.6em;
+    color: white;
+  }

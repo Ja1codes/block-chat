@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { UserService } from '../user.service';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { UserModel } from '../shared/services/user';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 
 @Injectable({
@@ -76,5 +77,22 @@ export class FirebaseService {
   }
   deleteUserFirestore(id: string): Promise<void> {
     return this.usersRef.doc(id).delete();
+  }
+
+  // Googlt Auth
+  // Sign in with Google
+  GoogleAuth() {
+    return this.onGoogleLogin(new GoogleAuthProvider());
+  }
+  // Auth logic to run auth providers
+  onGoogleLogin(provider: any) {
+    return this.afAuth
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.log('You have been successfully logged in!');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
