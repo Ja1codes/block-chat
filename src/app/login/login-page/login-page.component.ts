@@ -10,9 +10,6 @@ export class LoginPageComponent {
   @Output() loggedIn = new EventEmitter<any>();
   constructor(private _firebaseService: FirebaseService ){
   }
-  onSignUp(email:string, password:string){
-    this._firebaseService.signup(email,password);
-  }
   onSignIn(email: string, password: string){
     this._firebaseService.signin(email,password);
     this.loggedIn.emit();

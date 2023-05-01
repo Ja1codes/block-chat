@@ -12,7 +12,7 @@ export class FirebaseService {
   isLoggedIn = false;
   userData: any;
   newUser!: AngularFirestoreDocument<any>;
-  users: AngularFirestoreCollection
+  users!: AngularFirestoreCollection<any>;
   private dbUsersPath = '/tutorials';
   constructor(public afAuth: AngularFireAuth, private _userService: UserService, private db: AngularFirestore)
   {
