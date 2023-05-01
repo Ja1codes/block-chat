@@ -14,6 +14,8 @@ import { FriendDetailsComponent } from './components/friend-details/friend-detai
 import { ReactiveFormsModule } from '@angular/forms';
 import {SHA256} from 'crypto-js';
 import { AngularFireModule} from '@angular/fire/compat'
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { HttpClientModule } from '@angular/common/http';
 import { FirebaseService } from './core/firebase.service';
 import { HomeComponent } from './home/home.component';
 
@@ -35,16 +37,27 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp({
+
       apiKey: "AIzaSyB1KyjtYU1ukaLFoQaZIxxnR0uuvMMTBv8",
+
       authDomain: "blockchat-db.firebaseapp.com",
+
       databaseURL: "https://blockchat-db-default-rtdb.firebaseio.com",
+
       projectId: "blockchat-db",
+
       storageBucket: "blockchat-db.appspot.com",
+
       messagingSenderId: "408946840423",
+
       appId: "1:408946840423:web:9b23d07b03a6c8d25a15c2",
+
       measurementId: "G-BWX1GLL9HP"
+
     }),
     LoginModule,
+    AngularFireAuthModule,
+    HttpClientModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]

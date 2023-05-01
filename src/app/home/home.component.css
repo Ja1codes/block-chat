@@ -83,7 +83,7 @@ p {
 }
 .message-area {
   height: 100%;
-  width: calc(100% - 500px);
+  width: calc(100%);
 }
 .message-header {
   height: 80px;

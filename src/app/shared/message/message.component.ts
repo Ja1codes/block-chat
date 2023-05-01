@@ -19,7 +19,5 @@ export class MessageComponent implements OnInit {
     sentTime: new Date("Tue Feb 05 2019 12:05:22 GMT+0530 (IST)"),
     };
   ngOnInit(): void {
-    console.log('Initialized Message Component');
-    console.log(this.message);
   }
 }

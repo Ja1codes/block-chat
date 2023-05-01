@@ -7,20 +7,38 @@ import { UserService } from '../user.service';
 })
 export class FirebaseService {
 
+  accessToken!: string;
   isLoggedIn = false;
-  constructor(public firebaseAuth: AngularFireAuth, private _userService: UserService) { }
+  userData: any;
+  constructor(public afAuth: AngularFireAuth, private _userService: UserService)
+  {
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+        JSON.parse(localStorage.getItem('user')!);
+      } else {
+        localStorage.setItem('user', 'null');
+        JSON.parse(localStorage.getItem('user')!);
+      }
+    });
+  }
 
   signin(email:string, password: string){
-    this.firebaseAuth.signInWithEmailAndPassword(email,password).then(
+    this.afAuth.signInWithEmailAndPassword(email,password).then(
       res=>{
         this.isLoggedIn = true;
         this._userService._isLoggedIn$.next(true);
+        this.accessToken = JSON.parse(JSON.stringify(res)).user.stsTokenManager.accessToken;
+        console.log(this.accessToken);
+        localStorage.setItem('accessToken',this.accessToken);
         localStorage.setItem('user',JSON.stringify(res.user));
       }
     )
   }
+
   signup(email:string, password: string){
-    this.firebaseAuth.createUserWithEmailAndPassword(email,password).then(
+    this.afAuth.createUserWithEmailAndPassword(email,password).then(
       res=>{
         this.isLoggedIn = true;
         this._userService._isLoggedIn$.next(true);
@@ -30,8 +48,9 @@ export class FirebaseService {
     )
   }
   logout(){
-    this.firebaseAuth.signOut();
+    this.afAuth.signOut();
     localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
     this._userService._isLoggedIn$.next(false);
     this.isLoggedIn = false;
   }

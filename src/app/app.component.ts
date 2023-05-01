@@ -21,14 +21,12 @@ export class AppComponent {
     this._userService.isLoggedIn.subscribe(res=>{
       this.isSignedIn = res;
     })
-    if(localStorage.getItem('user')!==null){
-      alert("SignUp Successful")
-      this._userService._isLoggedIn$.next(true);
-      console.log(localStorage.getItem('user'));
-    }
-    else{
-      this._userService._isLoggedIn$.next(false);
+    if(localStorage.getItem('user')!==(null || 'null')){
+      this.isSignedIn = true;
     }
 
+  }
+  onLogin(){
+    this.isSignedIn = true;
   }
 }
