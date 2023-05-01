@@ -1,6 +1,7 @@
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Injectable } from '@angular/core';
 import { UserService } from '../user.service';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,10 @@ export class FirebaseService {
   accessToken!: string;
   isLoggedIn = false;
   userData: any;
-  constructor(public afAuth: AngularFireAuth, private _userService: UserService)
+  newUser!: AngularFirestoreDocument<any>;
+  users: AngularFirestoreCollection
+  private dbUsersPath = '/tutorials';
+  constructor(public afAuth: AngularFireAuth, private _userService: UserService, private db: AngularFirestore)
   {
     this.afAuth.authState.subscribe((user) => {
       if (user) {

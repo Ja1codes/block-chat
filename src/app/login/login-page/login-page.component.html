@@ -9,14 +9,14 @@
         <div class="form-group">
           <h4 class="text-center font-weight-bold"> Login </h4>
           <label for="Inputuser1">Username</label>
-           <input type="email" class="form-control" id="Inputuser1" aria-describeby="usernameHelp" placeholder="Enter username">
+           <input type="email" class="form-control" id="Inputuser1" aria-describeby="usernameHelp" placeholder="Enter username" >
         </div>
         <!--Binding the label and input together-->
         <div class="form-group">
           <label id="login-pass" for="InputPassword1">Password</label>
           <input type="password" id="login-pass1" class="form-control" id="InputPassword1" placeholder="Password">
         </div>
-        <button type="Sign in" id="login-btn"class="btn btn-primary btn-block">Sign in</button>
+        <button type="Sign in" id="login-btn"class="btn btn-primary btn-block" (click)="onSi">Sign in</button>
         <div class="form-footer">
           <p id="login-p"> Don't have an account? <a href="#">Sign Up</a></p>
         </div>
