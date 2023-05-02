@@ -8,6 +8,7 @@
 }
 .form-control{
     margin: 10px 0px;
+    width: 500px;
 
 }
 .form-container p{
@@ -88,4 +89,7 @@ button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disab
     display: table-cell;
     vertical-align: middle;
   }
-  
+  #login-p{
+    font-size: 1.6em;
+    color: white;
+  }

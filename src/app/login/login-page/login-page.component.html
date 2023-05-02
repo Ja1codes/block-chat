@@ -1,12 +1,12 @@
 <div class="back">
   <div class="div-center">
     <div class="content">     
-        <form class="form-container col-sm-12 my-auto">
+        <form class="form-container">
         <!--Binding the label and input together-->
         <div class="form-group">
           <h4 class="text-center font-weight-bold"> Login </h4>
           <label for="Inputuser1">Email</label>
-           <input type="email" class="form-control" id="Inputuser1" aria-describeby="usernameHelp" placeholder="Enter username" #emailSignIn>
+           <input type="email" class="form-control" id="Inputuser1" aria-describeby="usernameHelp" placeholder="Email" #emailSignIn>
         </div>
         <!--Binding the label and input together-->
         <div class="form-group">
@@ -14,6 +14,8 @@
           <input type="password" id="login-pass1" class="form-control" id="InputPassword1" placeholder="Password" #passwordSignIn>
         </div>
         <button type="Signin" id="login-bttn"class="form-control bttn bttn-primary submit px-3" (click)="onSignIn(emailSignIn.value,passwordSignIn.value)">Sign in</button>
+        <button type="Signin" id="Google-   login-bttn"class="form-control bttn bttn-primary submit px-3" (click)="onGoogleLoginClick()">Login with google</button>
+
         <div class="form-footer">
           <p id="login-p"> Don't have an account? <a href="#" (click)="onSigupSelected()">Sign Up</a></p>
         </div>
