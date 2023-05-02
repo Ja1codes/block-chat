@@ -38,15 +38,21 @@ export class FirebaseService {
   }
 
   signin(email:string, password: string){
-    this.afAuth.signInWithEmailAndPassword(email,password).then(
-      res=>{
-        this.isLoggedIn = true;
-        this._userService._isLoggedIn$.next(true);
-        this.accessToken = JSON.parse(JSON.stringify(res)).user.stsTokenManager.accessToken;
-        localStorage.setItem('accessToken',this.accessToken);
-        localStorage.setItem('user',JSON.stringify(res.user));
-      }
-    )
+    return new Promise((resolve, reject) =>{
+      this.afAuth.signInWithEmailAndPassword(email,password).then(
+        res=>{
+          this.isLoggedIn = true;
+          this._userService._isLoggedIn$.next(true);
+          this.accessToken = JSON.parse(JSON.stringify(res)).user.stsTokenManager.accessToken;
+          localStorage.setItem('accessToken',this.accessToken);
+          localStorage.setItem('user',JSON.stringify(res.user));
+          resolve(res);
+        }
+      ).catch(err=>{
+        reject(err);
+      })
+    })
+
   }
 
   signup(email:string, password: string){
@@ -59,10 +65,10 @@ export class FirebaseService {
           localStorage.setItem('accessToken',this.accessToken);
           localStorage.setItem('user',JSON.stringify(res.user));
           console.log(JSON.stringify(res));
-          this._userService.currentUser.id = JSON.stringify(res.user?.uid);
-          if(res.user?.uid){
+          this._userService.currentUser.id = JSON.stringify(JSON.parse(JSON.stringify(res)).user.uid);
+          if(res){
             debugger
-            const user = this.getUserById(res.user?.uid)
+            const user = this.getUserById(JSON.parse(JSON.stringify(res)).user.uid)
             this._userService.currentUser.userName = user.name;
             this._userService.currentUser.avatar = user.photo;
             this._userService.currentUser.email = user.email;
@@ -87,10 +93,18 @@ export class FirebaseService {
     return this.usersRef;
   }
   getUserById(id: string): any{
-    this.usersRef.doc(id).snapshotChanges().subscribe(res=>{
-      return res;
+    var user: any;
+    this.db.collection('users').doc(id).ref.get().then((doc)=> {
+      if (doc.exists) {
+        console.log(doc.data());
+        user = doc.data();
+      } else {
+        console.log("There is no document!");
+      }
+    }).catch(function (error) {
+      console.log("There was an error getting your document:", error);
     })
-
+    return user;
   }
   // v Returns Promise, use .then({ .. })
   createUserFirestore(user: UserModel, uid: string): any {

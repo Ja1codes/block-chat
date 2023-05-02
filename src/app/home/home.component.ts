@@ -10,7 +10,7 @@ import { UserModel } from '../shared/services/user';
 })
 export class HomeComponent {
   title = 'blockChat';
-  currentUser!: User;
+  currentUser!: any;
   //Add Friend
   friendFound: boolean = false;
   friend!: UserModel;
