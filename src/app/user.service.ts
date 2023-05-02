@@ -13,5 +13,6 @@ export class UserService {
     id: 0,
     userName: "",
     avatar: ``,
+    email: ""
   }
 }

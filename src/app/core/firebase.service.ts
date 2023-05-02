@@ -59,6 +59,13 @@ export class FirebaseService {
           localStorage.setItem('user',JSON.stringify(res.user));
           console.log(JSON.stringify(res));
           this._userService.currentUser.id = JSON.stringify(res.user?.uid);
+          if(res.user?.uid){
+            debugger
+            const user = this.getUserById(res.user?.uid)
+            this._userService.currentUser.userName = user.name;
+            this._userService.currentUser.avatar = user.photo;
+            this._userService.currentUser.email = user.email;
+          }
           resolve(res);
         }
       ).catch(error=>{
@@ -75,8 +82,14 @@ export class FirebaseService {
   }
 
   // User in Firestore
-  getAll(): AngularFirestoreCollection<UserModel> {
+  getAllUsers(): AngularFirestoreCollection<UserModel> {
     return this.usersRef;
+  }
+  getUserById(id: string): any{
+    this.usersRef.doc(id).snapshotChanges().subscribe(res=>{
+      return res;
+    })
+
   }
   // v Returns Promise, use .then({ .. })
   createUserFirestore(user: UserModel, uid: string): any {
