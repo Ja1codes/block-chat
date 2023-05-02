@@ -66,13 +66,6 @@ export class FirebaseService {
           localStorage.setItem('user',JSON.stringify(res.user));
           console.log(JSON.stringify(res));
           this._userService.currentUser.id = JSON.stringify(JSON.parse(JSON.stringify(res)).user.uid);
-          if(res){
-            debugger
-            const user = this.getUserById(JSON.parse(JSON.stringify(res)).user.uid)
-            this._userService.currentUser.userName = user.name;
-            this._userService.currentUser.avatar = user.photo;
-            this._userService.currentUser.email = user.email;
-          }
           resolve(res);
         }
       ).catch(error=>{
@@ -92,9 +85,9 @@ export class FirebaseService {
   getAllUsers(): AngularFirestoreCollection<UserModel> {
     return this.usersRef;
   }
-  getUserById(id: string): any{
+  async getUserById(id: string): Promise<any>{
     var user: any;
-    this.db.collection('users').doc(id).ref.get().then((doc)=> {
+    await this.db.collection('users').doc(id).ref.get().then((doc)=> {
       if (doc.exists) {
         console.log(doc.data());
         user = doc.data();
@@ -104,6 +97,7 @@ export class FirebaseService {
     }).catch(function (error) {
       console.log("There was an error getting your document:", error);
     })
+    console.log(user);
     return user;
   }
   // v Returns Promise, use .then({ .. })

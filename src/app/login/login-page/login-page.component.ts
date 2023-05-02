@@ -17,10 +17,14 @@ export class LoginPageComponent {
       this._userService.currentUser.id = JSON.stringify(JSON.parse(JSON.stringify(res)).user.uid);
           if(res){
             debugger
-            const user = this._firebaseService.getUserById(JSON.parse(JSON.stringify(res)).user.uid)
-            this._userService.currentUser.userName = user.name;
-            this._userService.currentUser.avatar = user.photo;
-            this._userService.currentUser.email = user.email;
+            var user: any;
+            this._firebaseService.getUserById(JSON.parse(JSON.stringify(res)).user.uid).then(usr=>{
+              user = usr;
+              debugger
+              this._userService.currentUser.userName = user.name;
+              this._userService.currentUser.avatar = user.photo;
+              this._userService.currentUser.email = user.email;
+            })
           }
     })
 
