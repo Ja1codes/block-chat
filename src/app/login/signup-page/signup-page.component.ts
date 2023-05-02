@@ -16,12 +16,14 @@ export class SignupPageComponent {
   async onSignUp(email:string, password:string, name: string, photo:string = ""){
     this.newUser.email = email;
     this.newUser.name = name;
-    this.newUser.photo = photo;
+    this.newUser.photo = `https://api.dicebear.com/6.x/initials/svg?seed=${name.split(' ')[0]}`;
     console.log(JSON.stringify(this.newUser));
+    debugger
       await this._firebaseService.signup(email, password).then(res => {
         const uid = JSON.parse(JSON.stringify(res)).user.uid;
         console.log(uid);
-        this._firebaseService.createUserFirestore(this.newUser);
+        debugger
+        this._firebaseService.createUserFirestore(this.newUser, uid);
       })
       .catch(error => {
         console.error(error);

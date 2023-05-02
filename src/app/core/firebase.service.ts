@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { UserService } from '../user.service';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { UserModel } from '../shared/services/user';
+import { ChainRegistry } from '../shared/services/chain-registry';
 
 
 @Injectable({
@@ -15,11 +16,14 @@ export class FirebaseService {
   userData!: any;
   userRef!: AngularFirestoreDocument<UserModel>;
   usersRef!: AngularFirestoreCollection<UserModel>;
+  chainRegistryRef!: AngularFirestoreCollection<ChainRegistry>
+  chainRef!: AngularFirestoreDocument<ChainRegistry>
   private dbUsersPath = '/users';
+  private dbChainsPath = '/chain-registry';
   constructor(public afAuth: AngularFireAuth, private _userService: UserService, private db: AngularFirestore)
   {
     this.usersRef = db.collection(this.dbUsersPath);
-
+    this.chainRegistryRef = db.collection(this.dbChainsPath);
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -54,6 +58,7 @@ export class FirebaseService {
           localStorage.setItem('accessToken',this.accessToken);
           localStorage.setItem('user',JSON.stringify(res.user));
           console.log(JSON.stringify(res));
+          this._userService.currentUser.id = JSON.stringify(res.user?.uid);
           resolve(res);
         }
       ).catch(error=>{
@@ -74,11 +79,11 @@ export class FirebaseService {
     return this.usersRef;
   }
   // v Returns Promise, use .then({ .. })
-  createUserFirestore(user: UserModel): any {
-    return this.usersRef.add({ ...user });
+  createUserFirestore(user: UserModel, uid: string): any {
+    return this.usersRef.doc(uid).set({ ...user });
   }
-  addUserFirestore(user: UserModel){
-    this.db.collection('users').add({
+  addUserFirestore(user: UserModel, uid: string){
+    this.db.collection('users').doc(uid).set({
       ...user
   })
   .then(res => {
@@ -94,8 +99,21 @@ export class FirebaseService {
   deleteUserFirestore(id: string): Promise<void> {
     return this.usersRef.doc(id).delete();
   }
-}
-function callback() {
-  throw new Error('Function not implemented.');
-}
+  getUserByEmail(email: string){
+    var itemCollection = this.db.collection<UserModel>('users', ref => {
+      // Compose a query using multiple .where() methods
+      return ref.where('email', '==', email)
+    });
+    var items = itemCollection.valueChanges({idField: 'id'});
+    return items;
+  }
 
+  //Chain Registry
+  createChainFirestore(users: string[]){
+    const newChain: ChainRegistry = new ChainRegistry;
+    newChain.users = users;
+    this.chainRegistryRef.add({...newChain}).then(ref=>{
+      return ref.id;
+    })
+  }
+}

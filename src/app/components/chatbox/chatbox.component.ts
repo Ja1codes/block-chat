@@ -113,7 +113,7 @@ export class ChatboxComponent implements OnInit {
   constructor(private _friendService: FriendService){
   }
   chatWith!: User;
-  contextChain: BlockChain = new BlockChain();
+  contextChain!: BlockChain;
   ngOnInit(): void {
     this._friendService.$chatWith.subscribe( user =>{
       this.chatWith = user;
@@ -128,7 +128,7 @@ export class ChatboxComponent implements OnInit {
   }
   newMessage(message: Message) {
     const newMessage = {...message};
-    const block: Block = new Block(this.contextChain.getLatestBlock().index+1, new Date, message, this.contextChain.getLatestBlock().hash);
+    const block: Block = new Block(this.contextChain.chainId, this.contextChain.getLatestBlock().index+1, new Date, message, this.contextChain.getLatestBlock().hash);
     block.hash = block.calculateHash();
     console.log(JSON.stringify(block));
     this.contextChain.addBlock(block);

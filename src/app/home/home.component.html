@@ -2,7 +2,7 @@
   <div class="left-area">
     <div class="icon-area">
       <img [src]="currentUser.avatar" alt="" width="42" height="42">
-      <button>
+      <button data-bs-toggle="modal" data-bs-target="#addFriend">
         <svg
           width="68"
           height="70"
@@ -55,6 +55,34 @@
           </defs>
         </svg>
       </button>
+      <div class="modal fade addFriend-modal" id="addFriend" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addFriendModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="addFriendModal">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form class="form-inline" style="display: flex;">
+                <div class="form-group mx-sm-3 mb-2">
+                  <label for="friendEmail" class="sr-only">Email</label>
+                  <input type="email" class="form-control" id="inputFriendEmail" placeholder="Friend's Email" #inputFriendEmail>
+                </div>
+                <button type="button" class="btn btn-primary mb-2 dark" (click)="searchFriend(inputFriendEmail.value)">Find</button>
+              </form>
+              <div *ngIf="friendFound">
+                <img [src]="friend.photo" alt="">
+                <h3>{{friend.name}}</h3>
+                <p>{{friend.email}}</p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary dark" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary dark" (click)="addFriend(friend.id)">Add Friend</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="contacts-area">
       <div class="header">
@@ -107,5 +135,4 @@
     </div>
   </div>
 </div>
-
 </div>

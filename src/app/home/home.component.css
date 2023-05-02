@@ -343,3 +343,8 @@ span.extension {
     display: none;
   }
 }
+
+/*Modal */
+.addFriend-modal{
+  color: black;
+}

@@ -1,13 +1,15 @@
 import * as shajs from "sha.js";
 import { SHA256 } from "crypto-js";
 export class Block{
-  constructor(index: number, timeStamp: Date, data: any, previousHash = ''){
+  constructor(chainId: string, index: number, timeStamp: Date, data: any, previousHash = ''){
+    this.chainId = chainId;
     this.index = index;
     this.timeStamp = timeStamp;
     this.data = data;
     this.previousHash = previousHash;
     this.hash = '';
   }
+  chainId: string;
   index: number;
   timeStamp: Date;
   data: any;
@@ -19,12 +21,14 @@ export class Block{
 }
 
 export class BlockChain{
-  constructor(){
-    this.chain = [this.createGenesisBlock()];
+  constructor(chainId: string){
+    this.chainId = chainId;
+    this.chain = [this.createGenesisBlock(chainId)];
   }
   chain: Block[] = [];
-  createGenesisBlock(){
-    return new Block(0, new Date, {}, '0');
+  chainId!: string;
+  createGenesisBlock(chainId: string){
+    return new Block(chainId, 0, new Date, {}, '0');
   }
   getLatestBlock(){
     return this.chain[this.chain.length-1];
