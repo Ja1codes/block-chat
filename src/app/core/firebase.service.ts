@@ -21,7 +21,7 @@ export class FirebaseService {
   usersRef!: AngularFirestoreCollection<UserModel>;
   chainRegistryRef!: AngularFirestoreCollection<ChainRegistry>
   chainRef!: AngularFirestoreDocument<ChainRegistry>
-  messagesRef!: AngularFirestoreCollection<Message>
+  messagesRef!: AngularFirestoreCollection<Block>
   private dbUsersPath = '/users';
   private dbChainsPath = '/chain-registry';
   private dbMessagePath = '/messages';
@@ -132,12 +132,13 @@ export class FirebaseService {
   }
 
   //Chain Registry
-  createChainFirestore(users: string[]){
+  createChainFirestore(users: string[]): Promise<string>{
     const newChain: ChainRegistry = new ChainRegistry;
     newChain.users = users;
-    this.chainRegistryRef.add({...newChain}).then(ref=>{
+    var chainId = this.chainRegistryRef.add({...newChain}).then(ref=>{
       return ref.id;
-    })
+    });
+    return chainId;
   }
   getFriendChains(userId: string){
     var itemCollection = this.db.collection<ChainRegistry>('chain-registry', ref =>{
@@ -147,10 +148,18 @@ export class FirebaseService {
     return items;
   }
   // Send Message
-  createMessageFirestore(messageBlock: Message){
-    this.messagesRef.add(messageBlock).then(ref=>{
+  createMessageFirestore(messageBlock: Block){
+    const message = JSON.parse(JSON.stringify(messageBlock));
+    this.messagesRef.add(message).then(ref=>{
       return ref.id;
     })
+  }
+  getBlocksByChainId(id: string){
+    var blockCollection = this.db.collection<Block>('messages', ref=>{
+      return ref;
+    })
+    var blocks = blockCollection.valueChanges();
+    return blocks
   }
 
 

@@ -19,7 +19,7 @@ export class ChatboxComponent implements OnInit {
     avatar: "",
     email: ""
   };
-  //contextChain!: BlockChain;
+  contextChain!: BlockChain;
   ngOnInit(): void {
     this._friendService.$chatWith.subscribe( user =>{
       if(user.id == '-1'){
@@ -27,6 +27,20 @@ export class ChatboxComponent implements OnInit {
       }
       else{
         this.chatWith = user;
+        this._friendService.$contextChainId.subscribe(chainId=>{
+          // Get All Blocks by ChainId
+          this._firebaseService.getBlocksByChainId(chainId).subscribe(resBlocks=>{
+            var blocks = resBlocks.filter((item)=>item.chainId == chainId);
+            blocks.sort((a,b)=>(a.index>b.index ? 1 : -1));
+            console.log("Genesis: " + blocks[0]);
+            this.contextChain = new BlockChain(chainId, blocks[0]);
+            for (let i = 1; i < blocks.length; i++) {
+              if(this.contextChain.chain.includes(blocks[i]) === false){
+                this.contextChain.chain.push(blocks[i]);
+              }
+            }
+          })
+        })
       }
     })
   }
@@ -39,12 +53,12 @@ export class ChatboxComponent implements OnInit {
   }
   newMessage(message: Message) {
     const newMessage = {...message};
-    //const block: Block = new Block(this.contextChain.chainId, this.contextChain.getLatestBlock().index+1, new Date, message, this.contextChain.getLatestBlock().hash);
-    //block.hash = block.calculateHash();
-    //console.log(JSON.stringify(block));
-    //this.contextChain.addBlock(block);
+    const block: Block = new Block(this.contextChain.chainId, this.contextChain.getLatestBlock().index+1, new Date, message, this.contextChain.getLatestBlock().hash);
+    block.hash = block.calculateHash();
+    console.log(JSON.stringify(block));
+    this.contextChain.addBlock(block);
     this.messages.push(newMessage);
-    this._firebaseService.createMessageFirestore(newMessage);
+    this._firebaseService.createMessageFirestore(block);
     this.scrollToBottom();
   }
   private scrollToBottom() {

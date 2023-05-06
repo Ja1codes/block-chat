@@ -21,10 +21,20 @@ export class Block{
 }
 
 export class BlockChain{
-  constructor(chainId: string){
-    this.chainId = chainId;
-    this.chain = [this.createGenesisBlock(chainId)];
+
+  constructor(chainId: string);
+  constructor(chainId: string, genesisBlock: Block)
+  constructor(chainId?: string, genesisBlock?: Block){
+    if(genesisBlock === undefined && chainId !==undefined){
+      this.chainId = chainId;
+      this.chain = [this.createGenesisBlock(chainId)];
+    }
+    else if(genesisBlock !== undefined && chainId !==undefined){
+      this.chainId = chainId;
+      this.chain = [genesisBlock];
+    }
   }
+
   chain: Block[] = [];
   chainId!: string;
   createGenesisBlock(chainId: string){

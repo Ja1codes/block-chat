@@ -3,6 +3,7 @@ import { User } from '../shared/message/message';
 import { UserService } from '../user.service';
 import { FirebaseService } from '../core/firebase.service';
 import { UserModel } from '../shared/services/user';
+import { BlockChain } from '../blockchain/blockchain';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -26,15 +27,18 @@ export class HomeComponent {
   }
   searchFriend(email:string){
     this._firebaseService.getUserByEmail(email).subscribe( res =>{
-      console.log(res);
+      console.log("Friend Found "+res);
       this.friendFound = true;
       this.friend = res[0];
     })
   }
-  addFriend(id:string){
+  async addFriend(id:string){
     var users: string[] = [];
     users.push(id);
     users.push(this._userService.currentUser.id);
-    this._firebaseService.createChainFirestore(users);
+    const chainId = await this._firebaseService.createChainFirestore(users);
+    console.log("Added Friend: " + chainId);
+    var newChain = new BlockChain(chainId);
+    this._firebaseService.createMessageFirestore(newChain.chain[0]);
   }
 }
