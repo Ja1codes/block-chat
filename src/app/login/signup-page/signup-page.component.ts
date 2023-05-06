@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FirebaseService } from 'src/app/core/firebase.service';
 import { UserModel } from 'src/app/shared/services/user';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -11,19 +12,19 @@ export class SignupPageComponent {
   @Output() loginSelected = new EventEmitter<any>();
   @Output() loggedIn = new EventEmitter<any>();
   newUser: UserModel = new UserModel;
-  constructor(private _firebaseService: FirebaseService){
+  constructor(private _firebaseService: FirebaseService,private _userService: UserService){
   }
-  async onSignUp(email:string, password:string, name: string, photo:string = ""){
+  onSignUp(email:string, password:string, name: string, photo:string = ""){
     this.newUser.email = email;
     this.newUser.name = name;
     this.newUser.photo = `https://api.dicebear.com/6.x/initials/svg?seed=${name.split(' ')[0]}`;
     console.log(JSON.stringify(this.newUser));
-    debugger
-      await this._firebaseService.signup(email, password).then(res => {
+      this._firebaseService.signup(email, password).then(res => {
         const uid = JSON.parse(JSON.stringify(res)).user.uid;
         console.log(uid);
         debugger
-        this._firebaseService.createUserFirestore(this.newUser, uid);
+        this._firebaseService.addUserFirestore(this.newUser, uid);
+        this.loginSelected.emit();
       })
       .catch(error => {
         console.error(error);

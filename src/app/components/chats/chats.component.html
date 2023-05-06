@@ -8,6 +8,6 @@
     [online]="true"
     *ngFor="let friend of friends"
     [friend]="friend"
-    (click)="showFriendDetails(friend.id)"
+    (click)="setChatboxContext(friend.id)"
   ></app-friend-chip>
 </div>

@@ -5,9 +5,10 @@ export class Message{
   sentTime!: Date;
 }
 export class User{
-  id!: number;
+  id!: string;
   userName!: string;
   avatar!: string;
+  email: string = "";
 }
 export class Attachment{
   name!: string;

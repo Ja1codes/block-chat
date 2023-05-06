@@ -5,6 +5,8 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { UserModel } from '../shared/services/user';
 import { ChainRegistry } from '../shared/services/chain-registry';
 import { GoogleAuthProvider } from 'firebase/auth';
+import { Message } from '../shared/message/message';
+import { Block } from '../blockchain/blockchain';
 
 
 @Injectable({
@@ -19,12 +21,15 @@ export class FirebaseService {
   usersRef!: AngularFirestoreCollection<UserModel>;
   chainRegistryRef!: AngularFirestoreCollection<ChainRegistry>
   chainRef!: AngularFirestoreDocument<ChainRegistry>
+  messagesRef!: AngularFirestoreCollection<Message>
   private dbUsersPath = '/users';
   private dbChainsPath = '/chain-registry';
+  private dbMessagePath = '/messages';
   constructor(public afAuth: AngularFireAuth, private _userService: UserService, private db: AngularFirestore)
   {
     this.usersRef = db.collection(this.dbUsersPath);
     this.chainRegistryRef = db.collection(this.dbChainsPath);
+    this.messagesRef = db.collection(this.dbMessagePath)
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -60,12 +65,7 @@ export class FirebaseService {
       this.afAuth.createUserWithEmailAndPassword(email,password).then(
         res=>{
           this.isLoggedIn = true;
-          this._userService._isLoggedIn$.next(true);
-          this.accessToken = JSON.parse(JSON.stringify(res)).user.stsTokenManager.accessToken;
-          localStorage.setItem('accessToken',this.accessToken);
-          localStorage.setItem('user',JSON.stringify(res.user));
-          console.log(JSON.stringify(res));
-          this._userService.currentUser.id = JSON.stringify(JSON.parse(JSON.stringify(res)).user.uid);
+          console.log("Sign Up Successful!")
           resolve(res);
         }
       ).catch(error=>{
@@ -101,7 +101,8 @@ export class FirebaseService {
     return user;
   }
   // v Returns Promise, use .then({ .. })
-  createUserFirestore(user: UserModel, uid: string): any {
+  createUserFirestore(user: UserModel, uid: string): Promise<any>{
+    debugger
     return this.usersRef.doc(uid).set({ ...user });
   }
   addUserFirestore(user: UserModel, uid: string){
@@ -138,6 +139,21 @@ export class FirebaseService {
       return ref.id;
     })
   }
+  getFriendChains(userId: string){
+    var itemCollection = this.db.collection<ChainRegistry>('chain-registry', ref =>{
+      return ref;
+    })
+    var items = itemCollection.valueChanges({idField: 'chainId'});
+    return items;
+  }
+  // Send Message
+  createMessageFirestore(messageBlock: Message){
+    this.messagesRef.add(messageBlock).then(ref=>{
+      return ref.id;
+    })
+  }
+
+
   // Googlt Auth
   // Sign in with Google
   GoogleAuth() {

@@ -14,7 +14,7 @@ export class LoginPageComponent {
   }
   onSignIn(email: string, password: string){
     this._firebaseService.signin(email,password).then(res=>{
-      this._userService.currentUser.id = JSON.stringify(JSON.parse(JSON.stringify(res)).user.uid);
+      this._userService.currentUser.id = JSON.parse(JSON.stringify(res)).user.uid;
           if(res){
             debugger
             var user: any;

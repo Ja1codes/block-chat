@@ -23,6 +23,7 @@ export class AppComponent {
     })
     if(localStorage.getItem('user')!==(null || 'null')){
       this.isSignedIn = true;
+      this._userService.currentUser.id = JSON.parse(localStorage.getItem('user') ?? " ").uid;
     }
 
   }
