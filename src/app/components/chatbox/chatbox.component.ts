@@ -10,6 +10,7 @@ import { FirebaseService } from 'src/app/core/firebase.service';
 })
 export class ChatboxComponent implements OnInit {
   messages: Message[] = [];
+  loading : boolean = true;
   @ViewChild('chatBox') chatBox!: ElementRef; // For Scroll to Bottom Feature
   constructor(private _friendService: FriendService, private _firebaseService: FirebaseService){
   }
