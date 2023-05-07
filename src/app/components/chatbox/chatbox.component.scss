@@ -1,11 +1,19 @@
 .chat-area {
+  background-color: #313338;
   padding: 16px;
+
 }
 .chat-area {
   flex: 1;
   height: calc(100vh - 60px - 80px);
   overflow: auto;
   border-bottom: 1px solid #ddd;
+}
+.message-header{
+  background-color: #232428;
+}
+#mess-al{
+
 }
 .left{
   cursor: pointer;
@@ -16,7 +24,7 @@
 }
 
 #cbox-body{
-  background-color: white;
+  background-color: #313338;
   height: 100vh;
   display: grid;
   place-items: center;

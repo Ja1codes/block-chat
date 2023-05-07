@@ -1,4 +1,4 @@
-<div class="type-area">
+<div id="m-input"class="flex-container" class="type-area">
       <!-- <div class="type-left">
         <button class="icon">
           clip button
@@ -11,7 +11,7 @@
         </button>
       </div> -->
       <div class="input-group mb-3">
-        <input type="text" class="form-control" [formControl]="messageText" placeholder="Type your message..." aria-label="Type your message..." aria-describedby="button-addon2" (keyup.enter)="onSend()">
+        <input type="text"class="form-control"  [formControl]="messageText" placeholder="Type your message..." aria-label="Type your message..." aria-describedby="button-addon2" (keyup.enter)="onSend()">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="onSend()"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
