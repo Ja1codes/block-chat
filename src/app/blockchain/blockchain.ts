@@ -1,4 +1,3 @@
-import * as shajs from "sha.js";
 import { SHA256 } from "crypto-js";
 export class Block{
   constructor(chainId: string, index: number, timeStamp: Date, data: any, previousHash = ''){
