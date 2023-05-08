@@ -1,7 +1,7 @@
 <div class="message-header" >
   <div class="message-wrapper">
     <div class="left" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-      <h2>{{chatWith.userName}}</h2>
+      <h2 style="color: aliceblue;">{{chatWith.userName}}</h2>
       <div class="icon">
         <i class="fa-solid fa-star"></i>
       </div>
@@ -34,11 +34,27 @@
     </div>
   </div>
 </div>
-<div class="chat-area" #chatBox>
-  <app-message
-    *ngFor="let block of contextChain.chain.slice(1)"
+
+<div *ngIf="!loading" class="chat-area" #chatBox>
+  <app-message *ngFor="let block of contextChain.chain.slice(1)"
     [message]="block.data"
   ></app-message>
   <app-chat-breakline></app-chat-breakline>
 </div>
-<app-chat-input (newMessage)="newMessage($event)"></app-chat-input>
+<app-chat-input *ngIf="!loading" (newMessage)="newMessage($event)"></app-chat-input>
+
+<div  *ngIf="loading" class="scene">
+  <div class="cube-wrapper">
+    <div class="cube">
+      <div class="cube-faces">
+        <div class="cube-face shadow"></div>
+        <div class="cube-face bottom"></div>
+        <div class="cube-face top"></div>
+        <div class="cube-face left"></div>
+        <div class="cube-face right"></div>
+        <div class="cube-face back"></div>
+        <div class="cube-face front"></div>
+      </div>
+    </div>
+  </div>
+</div>
