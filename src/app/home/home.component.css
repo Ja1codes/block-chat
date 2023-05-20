@@ -1,11 +1,4 @@
-body,
-html {
-  margin: 0 auto;
-  height: 100%;
-  color: #ffffff;
-  font-family: "Lato", sans-serif;
-  zoom: 80%;
-}
+
 h2,
 p {
   margin: 0;
@@ -37,7 +30,7 @@ p {
   align-items: center;
 }
 .contacts-area {
-  background-color: rgba(0, 0, 0, 0.76);
+  background-color: #2b2d31;
   width: 250px;
   height: 100%;
   padding: 30px 16px 0 20px;
@@ -140,7 +133,7 @@ button {
   display: flex;
 }
 .message {
-  color: rgb(0, 0, 0);
+  color: white;
 }
 .chat-break {
   position: relative;
@@ -237,25 +230,26 @@ span.extension {
 }
 .info-area {
   flex-shrink: 0;
-  width: 200px;
+  width: 26rem;
   height: 100%;
-  background-color: #d3d3d3;
+  background-color: #232428;
   overflow: auto;
 }
 .button-wrapper > .button-message {
   font-size: 16px;
-  background: #3577ef;
+  background-color: #924ED1;
   color: #ffffff;
   border-radius: 4px;
   padding: 5px 20px;
   margin-right: 5px;
 }
 .button-message:hover {
-  background: #0462bb;
+  background: #924ED1;
 }
 .button-wrapper {
   display: flex;
   align-items: center;
+  background-color: #924ED1;
 }
 .faded {
   color: #737373;
