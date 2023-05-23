@@ -341,3 +341,16 @@ span.extension {
 #gear-chat{
   color: aqua;
 }
+#add-fr{
+  height: 3rem;
+  width: 3rem;
+  margin-left: 3rem;
+}
+#f-btn:hover{
+  background-color: #924ED1;
+  border-color: #924ED1;
+
+}
+#f-btn{
+  margin-left: 1rem;
+}
