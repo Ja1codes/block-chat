@@ -51,7 +51,8 @@
           class="form-control bttn bttn-primary submit px-3"
           (click)="onSignIn(emailSignIn.value, passwordSignIn.value)"
         >
-          Sign in
+          <span *ngIf="!clickLoading">Sign in</span>
+          <div *ngIf="clickLoading" class="loader"></div>
         </button>
         <button
           type="Signin"
