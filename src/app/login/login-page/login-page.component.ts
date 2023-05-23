@@ -20,7 +20,7 @@ export class LoginPageComponent {
     this.clickLoading = true;
     if(this.isValidEmail(email)&& password != null){
       console.log("Email: " +email+ " Password: "+password)
-      this._firebaseService.signin(this.email,this.password).then(res=>{
+      this._firebaseService.signin(email,password).then(res=>{
         this._userService.currentUser.id = JSON.parse(JSON.stringify(res)).user.uid;
             if(res){
               console.log(res);
@@ -32,11 +32,10 @@ export class LoginPageComponent {
                 this._userService.currentUser.email = user.email;
               })
             }
+            this.loggedIn.emit();
       }).catch(err=>{
         this.clickLoading = false;
       })
-
-      this.loggedIn.emit();
     }
     else{
       alert("Invalid Email or Password")
