@@ -10,7 +10,7 @@
           send button
         </button>
       </div> -->
-      <div class="input-group mb-3">
+      <div class="input-group">
         <input type="text"class="form-control"  [formControl]="messageText" placeholder="Type your message..." aria-label="Type your message..." aria-describedby="button-addon2" (keyup.enter)="onSend()">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="onSend()"><i class="fa-solid fa-paper-plane"></i></button>
