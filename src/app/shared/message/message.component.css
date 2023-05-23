@@ -2,12 +2,13 @@
   display: flex;
 }
 .container {
-  padding: 0 0 10px 0;
+  padding: 0 0 20px 0;
 }
 .photo {
-  border-radius: 4px;
-  width: 34px;
-  height: 34px;
+	margin-top: -60px;
+	border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
 .container > .photo {
   margin-right: 10px;
@@ -21,18 +22,19 @@
   display: flex;
 }
 .message {
-  color: rgb(0, 0, 0);
+  color: white
+ 
 }
 span.extension {
   color: rgb(53, 119, 239);
 }
 h2,
-p {
+#p-mess {
   margin: 0;
 }
-p {
-  font-size: 14px;
-  color: #b5b5b5;
+#p-mess {
+  font-size: 16px;
+  color: white
 }
 .icon {
   width: 16px;
