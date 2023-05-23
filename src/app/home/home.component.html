@@ -68,15 +68,15 @@
                   <label for="friendEmail" class="sr-only">Email</label>
                   <input type="email" class="form-control" id="inputFriendEmail" placeholder="Friend's Email" #inputFriendEmail>
                 </div>
-                <button type="button" class="btn btn-primary mb-2 dark" (click)="searchFriend(inputFriendEmail.value)">Find</button>
+                <button type="button" id="f-btn"class="btn btn-primary mb-2 dark" (click)="searchFriend(inputFriendEmail.value)">Find</button>
               </form>
               <div *ngIf="friendFound">
-                <img [src]="friend.photo" alt="">
-                <h3>{{friend.name}}</h3>
-                <p>{{friend.email}}</p>
+                <img id="add-fr"  [src]="friend.photo" alt="">
+                <h3 id="add-fr" >{{friend.name}}</h3>
+                <p id="add-fr" >{{friend.email}}</p>
               </div>
             </div>
-            <div style="background-color: black;" class="modal-footer">
+            <div class="modal-footer">
               <button type="button" class="btn btn-secondary dark" data-bs-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary dark" (click)="addFriend(friend.id)">Add Friend</button>
             </div>
