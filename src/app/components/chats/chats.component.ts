@@ -28,26 +28,25 @@ export class ChatsComponent {
   getChats(){
     console.log("Get Call "+ this._userService.currentUser.id)
     var friendChains;
-
-    var items = this._firebaseService.getFriendChains(this._userService.currentUser.id).subscribe((res)=>{
-      friendChains = res.filter((item)=>item.users.includes(this._userService.currentUser.id));
-      friendChains.forEach((item)=>{
+    this._firebaseService.getFriendChains(this._userService.currentUser.id).subscribe((res) => {
+      this.friends = [];
+      console.log("FirebaseService/getFriendChains" + JSON.stringify(res));
+      friendChains = res.filter((item) => item.users.includes(this._userService.currentUser.id));
+      console.log("Filtered: " + JSON.stringify(friendChains));
+      friendChains.forEach((item) => {
         var newFriend = new Chat;
         newFriend.chainId = item.chainId;
         newFriend.user = new User;
-        var friendId = item.users.filter((Id)=>Id!==this._userService.currentUser.id);
-        this._firebaseService.getUserById(friendId[0]).then(usr=>{
+        var friendId = item.users.filter((Id) => Id !== this._userService.currentUser.id);
+        this._firebaseService.getUserById(friendId[0]).then(usr => {
           newFriend.user.id = friendId[0];
           newFriend.user.email = usr.email;
           newFriend.user.userName = usr.name;
           newFriend.user.avatar = usr.photo;
-        })
-        this.friends.push(newFriend);
+          this.friends.push(newFriend);
+          this._friendservice.users.push(newFriend.user);
+        });
       })
     })
-    this.friends.forEach((item)=>{
-      this._friendservice.users.push(item.user);
-    })
-    //this._friendservice.users = this.friends;
   }
 }

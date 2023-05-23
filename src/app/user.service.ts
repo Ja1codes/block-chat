@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class UserService {
 
   constructor() { }
-  _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   isLoggedIn = this._isLoggedIn$.asObservable();
   currentUser: any = {
     id: 0,

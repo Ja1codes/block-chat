@@ -19,15 +19,22 @@ export class AppComponent {
   isSignedIn=false;
   ngOnInit(){
     this._userService.isLoggedIn.subscribe(res=>{
-      this.isSignedIn = res;
+      if(!res){
+        this.isSignedIn = res;
+      }
     })
+    if(localStorage.getItem('user')!==(null || 'null')){
+      this.isSignedIn = true;
+      this._firebaseServie.getUserById(JSON.parse(localStorage.getItem('user') ?? " ").uid).then(usr=>{
+        console.log("Get Current User: "+ usr)
+        this._userService.currentUser = usr;
+      })
+    }
+  }
+  onLogin(){
     if(localStorage.getItem('user')!==(null || 'null')){
       this.isSignedIn = true;
       this._userService.currentUser.id = JSON.parse(localStorage.getItem('user') ?? " ").uid;
     }
-
-  }
-  onLogin(){
-    this.isSignedIn = true;
   }
 }

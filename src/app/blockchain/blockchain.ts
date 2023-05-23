@@ -51,6 +51,8 @@ export class BlockChain{
     for(let i = 1; i< this.chain.length; i++){
       const currentBlock = this.chain[i];
       const previousBlock = this.chain[i-1];
+      console.log(currentBlock);
+
       if(currentBlock.hash !== currentBlock.calculateHash()){
         return false;
       }
@@ -59,5 +61,8 @@ export class BlockChain{
       }
     }
     return true;
+  }
+  calculateHash(block: Block){
+    return SHA256(block.index + block.previousHash + block.timeStamp + JSON.stringify(block.data)).toString();
   }
 }

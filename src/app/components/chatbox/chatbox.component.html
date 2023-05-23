@@ -39,7 +39,7 @@
   <app-message *ngFor="let block of contextChain.chain.slice(1)"
     [message]="block.data"
   ></app-message>
-  <app-chat-breakline></app-chat-breakline>
+  <!-- <app-chat-breakline></app-chat-breakline> -->
 </div>
 <app-chat-input *ngIf="!loading" (newMessage)="newMessage($event)"></app-chat-input>
 

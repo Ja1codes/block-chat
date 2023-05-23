@@ -22,6 +22,7 @@ export class ChatboxComponent implements OnInit {
   };
   contextChain!: BlockChain;
   ngOnInit(): void {
+    this.loading = true;
     this._friendService.$chatWith.subscribe( user =>{
       if(user.id == '-1'){
         // Message "Select a chat to continue"
@@ -40,6 +41,7 @@ export class ChatboxComponent implements OnInit {
                 this.contextChain.chain.push(blocks[i]);
               }
             }
+            this.loading = false;
           })
         })
       }
@@ -49,8 +51,19 @@ export class ChatboxComponent implements OnInit {
     this.scrollToBottom();
   }
   validateChat(){
-    //this.contextChain.isChainValid();
-    alert('Chat is Valid!');
+    for(let i = 1; i< this.contextChain.chain.length; i++){
+      const currentBlock = this.contextChain.chain[i];
+      const previousBlock = this.contextChain.chain[i-1];
+      console.log(currentBlock);
+
+      if(currentBlock.hash !== this.contextChain.calculateHash(currentBlock)){
+        alert("Chat is Invalid!");
+      }
+      if(currentBlock.previousHash !== previousBlock.hash){
+        alert("Chat is Invalid!");
+      }
+    }
+    alert("Chat is Valid!");
   }
   newMessage(message: Message) {
     const newMessage = {...message};
