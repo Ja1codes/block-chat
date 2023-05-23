@@ -23,16 +23,16 @@ export class LoginPageComponent {
       this._firebaseService.signin(email,password).then(res=>{
         this._userService.currentUser.id = JSON.parse(JSON.stringify(res)).user.uid;
             if(res){
-              console.log(res);
               var user: any;
               this._firebaseService.getUserById(JSON.parse(JSON.stringify(res)).user.uid).then(usr=>{
                 user = usr;
                 this._userService.currentUser.userName = user.name;
                 this._userService.currentUser.avatar = user.photo;
                 this._userService.currentUser.email = user.email;
+              }).then(res=>{
+                this.loggedIn.emit();
               })
             }
-            this.loggedIn.emit();
       }).catch(err=>{
         this.clickLoading = false;
       })
