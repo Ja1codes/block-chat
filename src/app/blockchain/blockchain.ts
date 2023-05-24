@@ -57,9 +57,9 @@ export class BlockChain {
     for (let i = 1; i < this.chain.length; i++) {
       const currentBlock = this.chain[i];
       const previousBlock = this.chain[i - 1];
-      if (currentBlock.hash !== this.calculateHash(currentBlock)) {
-        return false;
-      }
+      // if (currentBlock.hash !== this.calculateHash(currentBlock)) {
+      //   return false;
+      // }
       if (currentBlock.previousHash !== previousBlock.hash) {
         return false;
       }
