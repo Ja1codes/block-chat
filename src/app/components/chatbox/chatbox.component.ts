@@ -52,19 +52,25 @@ export class ChatboxComponent implements OnInit {
     this.scrollToBottom();
   }
   validateChat(){
-    for(let i = 1; i< this.contextChain.chain.length; i++){
-      const currentBlock = this.contextChain.chain[i];
-      const previousBlock = this.contextChain.chain[i-1];
-      console.log(currentBlock);
+    // for(let i = 1; i< this.contextChain.chain.length; i++){
+    //   const currentBlock = this.contextChain.chain[i];
+    //   const previousBlock = this.contextChain.chain[i-1];
+    //   console.log(currentBlock);
 
-      if(currentBlock.hash !== this.contextChain.calculateHash(currentBlock)){
-        alert("Chat is Invalid!");
-      }
-      if(currentBlock.previousHash !== previousBlock.hash){
-        alert("Chat is Invalid!");
-      }
+    //   if(currentBlock.hash !== this.contextChain.calculateHash(currentBlock)){
+    //     alert("Chat is Invalid!");
+    //   }
+    //   if(currentBlock.previousHash !== previousBlock.hash){
+    //     alert("Chat is Invalid!");
+    //   }
+    // }
+    console.log(JSON.stringify(this.contextChain));
+    if(this.contextChain.isChainValid()){
+      alert("Chat is Valid!");
     }
-    alert("Chat is Valid!");
+    else{
+      alert("Chat is Invalid!");
+    }
   }
   newMessage(message: Message) {
     const newMessage = {...message};
