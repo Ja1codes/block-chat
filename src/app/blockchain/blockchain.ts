@@ -1,6 +1,7 @@
 import { SHA256 } from "crypto-js";
-export class Block{
-  constructor(chainId: string, index: number, timeStamp: Date, data: any, previousHash = ''){
+
+export class Block {
+  constructor(chainId: string, index: number, timeStamp: Date, data: any, previousHash = '') {
     this.chainId = chainId;
     this.index = index;
     this.timeStamp = timeStamp;
@@ -8,27 +9,28 @@ export class Block{
     this.previousHash = previousHash;
     this.hash = '';
   }
+
   chainId: string;
   index: number;
   timeStamp: Date;
   data: any;
   previousHash: any;
   hash: any;
-  calculateHash(){
+
+  calculateHash() {
     return SHA256(this.index + this.previousHash + this.timeStamp + JSON.stringify(this.data)).toString();
   }
 }
 
-export class BlockChain{
-
+export class BlockChain {
   constructor(chainId: string);
   constructor(chainId: string, genesisBlock: Block)
-  constructor(chainId?: string, genesisBlock?: Block){
-    if(genesisBlock === undefined && chainId !==undefined){
+  constructor(chainId?: string, genesisBlock?: Block) {
+    if (genesisBlock === undefined && chainId !== undefined) {
       this.chainId = chainId;
       this.chain = [this.createGenesisBlock(chainId)];
     }
-    else if(genesisBlock !== undefined && chainId !==undefined){
+    else if (genesisBlock !== undefined && chainId !== undefined) {
       this.chainId = chainId;
       this.chain = [genesisBlock];
     }
@@ -36,27 +38,29 @@ export class BlockChain{
 
   chain: Block[] = [];
   chainId!: string;
-  createGenesisBlock(chainId: string){
-    return new Block(chainId, 0, new Date, {}, '0');
+
+  createGenesisBlock(chainId: string) {
+    return new Block(chainId, 0, new Date(), {}, '0');
   }
-  getLatestBlock(){
-    return this.chain[this.chain.length-1];
+
+  getLatestBlock() {
+    return this.chain[this.chain.length - 1];
   }
-  addBlock(newBlock: Block){
+
+  addBlock(newBlock: Block) {
     newBlock.previousHash = this.getLatestBlock().hash;
     newBlock.hash = newBlock.calculateHash();
     this.chain.push(newBlock);
   }
-  isChainValid(){
-    for(let i = 1; i< this.chain.length; i++){
-      const currentBlock = this.chain[i];
-      const previousBlock = this.chain[i-1];
-      console.log(currentBlock);
 
-      if(currentBlock.hash !== currentBlock.calculateHash()){
+  isChainValid() {
+    for (let i = 1; i < this.chain.length; i++) {
+      const currentBlock = this.chain[i];
+      const previousBlock = this.chain[i - 1];
+      if (currentBlock.hash !== this.calculateHash(currentBlock)) {
         return false;
       }
-      if(currentBlock.previousHash !== previousBlock.hash){
+      if (currentBlock.previousHash !== previousBlock.hash) {
         return false;
       }
     }
