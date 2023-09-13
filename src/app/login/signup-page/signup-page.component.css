@@ -50,7 +50,7 @@ button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disab
     background: transparent;
     border: none;
     height: 50px;
-    color: black!important;
+    color: white!important;
     border: 1px solid transparent;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 40px;
@@ -90,6 +90,6 @@ button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disab
     vertical-align: middle;
   }
   #signup-p{
-    font-size: 1.6em;
+    font-size: 1.3em;
     color: white;
   }
